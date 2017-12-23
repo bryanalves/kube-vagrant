@@ -9,3 +9,10 @@ apt-get update
 apt-get install -y kubelet kubeadm kubectl
 
 swapoff -a
+
+cat << EOF > /etc/systemd/system/kubelet.service.d/09-node_ip.conf
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--node-ip=$1"
+EOF
+
+systemctl daemon-reload
