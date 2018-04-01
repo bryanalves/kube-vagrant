@@ -1,0 +1,17 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: |
+    peers:
+      - peer-address: router.my.bumbum.dance
+        peer-asn: 2147483648
+        my-asn: 2147483648
+    address-pools:
+      - name: default
+        protocol: bgp
+        cidr:
+          - 192.168.10.0/24

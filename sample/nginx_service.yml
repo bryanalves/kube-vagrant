@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-service
+  annotations:
+    #kube-router.io/service.dsr: tunnel
+
+spec:
+  selector:
+    app: nginx
+
+  externalTrafficPolicy: Local
+
+  type: NodePort
+
+  ports:
+    - protocol: TCP
+      port: 80
+
+  externalIPs:
+    - 192.168.60.13

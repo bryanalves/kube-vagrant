@@ -17,6 +17,7 @@ Vagrant.configure('2') do |config|
     ip = '192.168.60.10'
     machine.vm.hostname = 'kube-master'
     machine.vm.network 'private_network', ip: ip, netmask: '255.255.255.0'
+    machine.vm.network 'private_network', ip: "192.168.61.10", netmask: '255.255.255.0'
 
     machine.vm.provision 'shell', path: './provision/kubeadm.sh', args: ip
     machine.vm.provision 'shell', path: './provision/setup_master.sh'
@@ -25,8 +26,10 @@ Vagrant.configure('2') do |config|
   (1..NODES).each do |node|
     config.vm.define "kube-node-#{node}" do |machine|
       ip = "192.168.60.#{11 + node}"
+      ip2 = "192.168.61.#{11 + node}"
       machine.vm.hostname = "kube-node-#{node}"
       machine.vm.network 'private_network', ip: ip, netmask: '255.255.255.0'
+      machine.vm.network 'private_network', ip: ip2, netmask: '255.255.255.0'
 
       machine.vm.provision 'shell', path: './provision/kubeadm.sh', args: ip
       machine.vm.provision 'shell', path: './provision/setup_node.sh'
